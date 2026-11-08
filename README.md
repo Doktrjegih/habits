@@ -28,3 +28,7 @@ Habits and daily entries are stored in localStorage on the current browser/devic
 ## Implementation
 
 Vanilla JavaScript ES modules, responsive CSS, a web app manifest, and a service worker with a cached app shell. `src/store.js` holds data rules; `src/app.js` handles the UI. `server.mjs` is a small development/preview server. When changing cached assets for a release, bump the cache version in `public/sw.js`; close existing tabs to activate an update.
+
+## Deploy on Vercel
+
+Import `Doktrjegih/habits` as a new Vercel project. For the app currently in PR #1, select the `feat/habit-tracker-pwa` branch, or merge the PR and deploy `main`. `vercel.json` configures the static build (`npm run build`) and output (`dist`), and prevents the service worker from being cached by the CDN. No environment variables are required.
