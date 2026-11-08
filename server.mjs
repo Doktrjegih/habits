@@ -1,0 +1,6 @@
+import { createServer } from 'node:http';
+import { readFile } from 'node:fs/promises';
+import { resolve, extname, sep } from 'node:path';
+const root=resolve(process.env.SERVE_DIST?'dist':'.');
+const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json','.webmanifest':'application/manifest+json','.svg':'image/svg+xml','.png':'image/png'};
+createServer(async(req,res)=>{try{const url=new URL(req.url,'http://localhost');const pathname=decodeURIComponent(url.pathname);let file=resolve(root,'.'+(pathname.endsWith('/')?pathname+'index.html':pathname));if(!file.startsWith(root+sep)){res.writeHead(403).end();return;}if(!process.env.SERVE_DIST&&(pathname==='/sw.js'||pathname==='/manifest.webmanifest'||pathname.startsWith('/icon')))file=resolve(root,'public',pathname.slice(1));const body=await readFile(file);res.writeHead(200,{'Content-Type':types[extname(file)]||'application/octet-stream','Cache-Control':'no-cache','X-Content-Type-Options':'nosniff'}).end(body);}catch{res.writeHead(404).end('Not found');}}).listen(Number(process.env.PORT||4173),'0.0.0.0',()=>console.log('Habits running on http://localhost:'+(process.env.PORT||4173)));
