@@ -1,4 +1,4 @@
-const CACHE = 'habits-v1';
+const CACHE = 'habits-v2';
 const ASSETS = ['./','./index.html','./src/app.js','./src/store.js','./src/style.css','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png','./icon-maskable.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS))));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('habits-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
