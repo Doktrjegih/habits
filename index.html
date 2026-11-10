@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#e3f59b"><meta name="description" content="Track daily habits, completion, and time spent, even offline.">
+  <link rel="manifest" href="./manifest.webmanifest"><link rel="icon" type="image/svg+xml" href="./icon.svg"><link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./src/style.css"><title>Habits</title>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="./"><span class="brand-mark">h<span>·</span></span>habits<span class="brand-dot">.</span></a>
+
+    <nav aria-label="Main navigation"><button class="nav-item active" id="daily-nav"><span>▦</span> Daily overview</button><button class="nav-item" id="history-nav"><span>◷</span> Your history</button></nav>
+    <div class="local-status"><i></i> Saved on this device</div>
+  </aside>
+  <main>
+    <header><div class="breadcrumb">My workspace <span>/</span> <b>Daily overview</b></div><div class="header-right"><span id="network-status">Offline ready</span><button id="install" class="text-button">Install app</button></div></header>
+    <section class="page-heading"><div><div class="eyebrow" id="today-label"></div><h1>Daily overview</h1></div><button class="primary" id="add-habit"><span>＋</span> New habit</button></section>
+    <section class="stats" aria-label="Daily progress"><article class="stat"><div class="stat-top">Habits completed <span>✓</span></div><div class="stat-value"><strong id="completed-count">0</strong><span id="habit-total">/ 0</span></div><div class="progress-track"><div id="progress-fill"></div></div><p id="progress-caption">No habits yet.</p></article><article class="stat"><div class="stat-top">Time spent <span>◷</span></div><div class="stat-value"><strong id="time-total">0</strong><span>min</span></div><p>Total minutes for this day.</p></article></section>
+    <section class="habit-section"><div class="section-heading"><div><h2>Your daily habits <span id="list-count">0</span></h2><p id="selected-label">Today’s habits.</p></div><div class="date-controls"><button id="previous-day" aria-label="Previous day">‹</button><button id="date-label" title="Return to today">Today</button><button id="next-day" aria-label="Next day">›</button><input type="date" id="date-picker" aria-label="Choose a day"></div></div><div class="week" id="week" aria-label="Choose day"></div><div class="list-toolbar"><div class="tabs" role="group" aria-label="Filter habits"><button class="selected" data-filter="all">All habits</button><button data-filter="pending">To do</button><button data-filter="done">Completed</button></div><span id="daily-percent">0% complete</span></div><div id="habit-list"></div></section>
+    <footer><button id="export" class="text-button">Export data</button></footer>
+  </main>
+  <dialog id="habit-dialog"><form id="habit-form"><div class="dialog-heading"><div><h2 id="dialog-title">Start a new habit</h2></div><button type="button" class="icon-button close-dialog" aria-label="Close">×</button></div><label>Habit name<input id="habit-name" maxlength="70" required placeholder="e.g. Read a few pages" autocomplete="off"></label><label>Daily time goal <span class="optional">(optional)</span><div class="input-suffix"><input id="habit-goal" type="number" min="1" max="1440" step="1" placeholder="20"><span>minutes</span></div></label><fieldset><legend>Habit icon</legend><div id="emoji-picker" class="emoji-picker"></div></fieldset><div class="dialog-actions"><button type="button" class="secondary close-dialog">Cancel</button><button class="primary" type="submit">Save habit</button></div></form></dialog>
+  <dialog id="time-dialog"><form id="time-form"><div class="dialog-heading"><div><h2>Log your time</h2></div><button type="button" class="icon-button close-dialog" aria-label="Close">×</button></div><p id="time-habit-name"></p><label>Total time for this day<div class="input-suffix"><input id="time-minutes" type="number" min="0" max="1440" step="1" required><span>minutes</span></div></label><p class="form-hint">Set the total minutes spent. Completion is tracked separately.</p><div class="quick-times"><button type="button" data-minutes="5">5 min</button><button type="button" data-minutes="15">15 min</button><button type="button" data-minutes="30">30 min</button><button type="button" data-minutes="60">60 min</button></div><div class="dialog-actions"><button type="button" class="secondary close-dialog">Cancel</button><button type="submit" class="primary">Save time</button></div></form></dialog>
+  <dialog id="delete-dialog"><form id="delete-form"><h2>Delete this habit?</h2><p>This removes the habit and all of its history from this device.</p><div class="dialog-actions"><button type="button" class="secondary close-dialog">Keep habit</button><button type="submit" class="danger">Delete habit</button></div></form></dialog>
+  <dialog id="install-dialog"><h2>Install Habits</h2><p>On iPhone or iPad, open this page in Safari, tap Share, then “Add to Home Screen”. On other devices, choose “Install app” from your browser’s menu.</p><form method="dialog"><button class="primary">Got it</button></form></dialog>
+  <div id="toast" role="status"></div><script type="module" src="./src/app.js"></script>
+</body></html>
